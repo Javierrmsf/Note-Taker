@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.static("public"))
 
 ////////
-app.get("*", function(req, res) {
+app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/index.html"));
    });
 
@@ -38,12 +38,9 @@ app.get("/api/notes", function(req, res){
 });
    //route to get stored notes from db
 
-app.get("/api/notes/:id", function(req, res){
-res.sendFile(path.join(__dirname, "/db/db.json"));
-});
 
 
-
+ /////
 app.post("/api/notes", function(req, res){
     let newnote = req.body;
     let storednotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
