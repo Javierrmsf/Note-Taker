@@ -40,7 +40,7 @@ app.get("/api/notes", function(req, res){
 
 
 
- /////
+ /////POST
 app.post("/api/notes", function(req, res){
     let newnote = req.body;
     let storednotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
@@ -55,7 +55,24 @@ app.post("/api/notes", function(req, res){
 
 });
 
+///////DELETE METHOD
 
+
+app.delete("/api/notes/:id", function(req, res){
+
+
+    let storednotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    
+    let id = req.params.id - 1
+
+    storednotes.splice(id, 1);
+    
+
+
+    fs.writeFileSync("./db/db.json", JSON.stringify(storednotes));
+    res.json(storednotes);
+
+});
 
 
 
