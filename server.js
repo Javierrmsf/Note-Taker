@@ -38,8 +38,35 @@ app.get("/api/notes", function(req, res){
 });
    //route to get stored notes from db
 
+app.get("/api/notes/:id", function(req, res){
+res.sendFile(path.join(__dirname, "/db/db.json"));
+});
 
 
 
-   
+app.post("/api/notes", function(req, res){
+    let newnote = req.body;
+    let storednotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let nl =(storednotes.length).toString();
 
+    newnote.id = nl;
+    
+    storednotes.push(newnote);
+    
+    fs.writeFileSync("./db/db.json", JSON.stringify(storednotes));
+     res.json(storednotes);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+   app.listen(PORT, () => console.log("listening at " + PORT));
